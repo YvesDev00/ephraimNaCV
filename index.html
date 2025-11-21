@@ -57,28 +57,33 @@
             position: fixed;
             top: 0;
             right: -100%;
-            /* Caché à droite de l'écran */
             width: 100%;
-            /* Pleine largeur sur mobile, ou mettez 300px pour un volet */
             max-width: 400px;
-            /* Limite la largeur sur grand écran */
             height: 100vh;
-            background: rgba(5, 5, 5, 0.95);
-            /* Fond très sombre presque opaque */
+
+            /* --- LE SECRET DU VERRE --- */
+            background: rgba(0, 0, 0, 0.2);
+            /* Beaucoup plus transparent (20% noir) */
+            backdrop-filter: blur(20px);
+            /* Le flou intense derrière */
+            -webkit-backdrop-filter: blur(z0px);
+            /* Indispensable pour que ça marche sur Safari/iOS */
+
+            /* Bordure brillante pour accentuer l'effet verre */
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            /* Ombre portée */
+
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             transition: right 0.4s ease;
-            /* Animation fluide */
-            backdrop-filter: blur(10px);
-            border-left: 1px solid var(--border);
             z-index: 1000;
         }
 
         .nav-menu.active {
             right: 0;
-            /* Le menu glisse vers l'intérieur */
         }
 
         .nav-links {
@@ -870,34 +875,6 @@
         <h2 class="section-title"><span>Expériences & Projets Récents</span></h2>
         <div class="projects-grid">
 
-            <a href="https://www.facebook.com/share/1GUHFsveum/" class="project-card">
-                <img src="https://scontent.foua5-1.fna.fbcdn.net/v/t39.30808-6/526735258_1177006391133714_302026759480995220_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEosA2a55qdSmyvrefIrwkNSgidVSmDq91KCJ1VKYOr3S0KumJBqi6RiC77RYNw6xgTeo2SDTclC3ZMbUVmSYze&_nc_ohc=E1_s4jaGAI8Q7kNvwGmWOma&_nc_oc=AdlSMeG1OCRA30r8-zZsS7s7xvJ01k9dQdr5k5oipyYEu1avrybquhFTUoRyUPrC3zc&_nc_zt=23&_nc_ht=scontent.foua5-1.fna&_nc_gid=nThODrbVv9gWpsejRVAtoQ&oh=00_Afjoivxar2ysdfjgzHZz81fvjyWnjjJ_rajUk-xHCG1Usg&oe=6926818B"
-                    alt="Campagne Événement Gospel" class="project-img">
-                <div class="project-info">
-                    <h3>Communication SM Services</h3>
-                    <p>Stratégie Social Media - Gestions des réseaux Sociaux.</p>
-                    <div class="project-tags">
-                        <span class="tag">#SmServices</span>
-                        <span class="tag">#Informatique</span>
-                        <span class="tag">#Appareil</span>
-                    </div>
-                </div>
-            </a>
-
-            <a href="https://www.facebook.com/share/1D6V7GbUL4/" class="project-card">
-                <img src="https://scontent.foua5-1.fna.fbcdn.net/v/t39.30808-6/456913104_1059418039160115_3272494416416696404_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFTDfke2fVxrqmw8JWJCZhw8Og09_hKMZnw6DT3-EoxmXUNhP_xS-GsZUgmw1u0DC6bHiKAJZCI35UIC1P2q8uv&_nc_ohc=ScYa9taYLxwQ7kNvwEtt2so&_nc_oc=Adm3lw-ZZ-1w0o8e8SJHMSNLQTLqDtUfnFKtTQW1HlvKdYrMcIAb6K5y1QGE8JfsvhI&_nc_zt=23&_nc_ht=scontent.foua5-1.fna&_nc_gid=XrCORPQXKr7uo7mu4nwi8A&oh=00_AfhLegzVkGNEwDo2VzC6vtvtYZ9HW1l-oGm-7YOycbSkrQ&oe=69269D70"
-                    alt="Refonte Image Artiste" class="project-img">
-                <div class="project-info">
-                    <h3>Restaurant Espace Merveilles</h3>
-                    <p>Creation de Contenu</p>
-                    <div class="project-tags">
-                        <span class="tag">#Restaurant</span>
-                        <span class="tag">#Storytelling</span>
-                        <span class="tag">#IG_Reels</span>
-                    </div>
-                </div>
-            </a>
-
             <a href="https://vm.tiktok.com/ZMA3KBFL5/" class="project-card">
                 <img src="https://scontent.foua5-1.fna.fbcdn.net/v/t39.30808-6/398377226_770163681792944_7165898122605126490_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEv9_OblQfeNegUEUENQVDyripUTfpzbSGuKlRN-nNtIS9RI3Ef6sbW-Pm7LmkTXrfhP7zezssFQ217-uoSIyYy&_nc_ohc=ueK35Y6fV6QQ7kNvwGbYLtJ&_nc_oc=Adk7mi6wrGWlAY5va1iyCXRJZTFVPOh7evND5n3EvKF7--zdV6CP6e-alGEk2vE4SiQ&_nc_zt=23&_nc_ht=scontent.foua5-1.fna&_nc_gid=g9r4FQHyCFTxfNa_LAm5Ew&oh=00_AfjnNMyYKxiE1pl0ujyzObGCH-pa99DMczN87TCMlV3UoQ&oe=69267551"
                     alt="Série de Courts-Métrages Viraux" class="project-img">
@@ -912,6 +889,37 @@
                     </div>
                 </div>
             </a>
+
+            <a href="https://www.facebook.com/share/1ABfEoswam/" class="project-card">
+                <img src="https://scontent.foua5-1.fna.fbcdn.net/v/t39.30808-6/447736790_122146170944051326_8655895172591947251_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEIjkFVX4XwZQNv8gzTw4CLBdLIFU87EpUF0sgVTzsSlZV8a5qKeRVSKQqYF8-4-D70DJ1hgTznB7Ae8W6GiD1D&_nc_ohc=nELZe0I2kSgQ7kNvwGQIvW7&_nc_oc=AdlRDKWUmeyAxgV93eKNvKlzE9ZppXAPXi0lBnjdxokcbcM1UyRpxiA9YBBR189mWnI&_nc_zt=23&_nc_ht=scontent.foua5-1.fna&_nc_gid=wSMXPsNViGvJxVOtXXhw5w&oh=00_AfjbI9r8gx4wN9FG5B4cGHwYnelACdR4yIgS0ig3QzjI-w&oe=6926C301"
+                    alt="Refonte Image Artiste" class="project-img">
+                <div class="project-info">
+                    <h3>TopTrade-Burkina</h3>
+                    <p>Creation de Contenu</p>
+                    <div class="project-tags">
+                        <span class="tag">#TopTrade</span>
+                        <span class="tag">#Import-export</span>
+                        <span class="tag">#Storytelling</span>
+                        <span class="tag">#IG_Reels</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://www.facebook.com/share/1GUHFsveum/" class="project-card">
+                <img src="https://scontent.foua5-1.fna.fbcdn.net/v/t39.30808-6/526735258_1177006391133714_302026759480995220_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEosA2a55qdSmyvrefIrwkNSgidVSmDq91KCJ1VKYOr3S0KumJBqi6RiC77RYNw6xgTeo2SDTclC3ZMbUVmSYze&_nc_ohc=E1_s4jaGAI8Q7kNvwGmWOma&_nc_oc=AdlSMeG1OCRA30r8-zZsS7s7xvJ01k9dQdr5k5oipyYEu1avrybquhFTUoRyUPrC3zc&_nc_zt=23&_nc_ht=scontent.foua5-1.fna&_nc_gid=nThODrbVv9gWpsejRVAtoQ&oh=00_Afjoivxar2ysdfjgzHZz81fvjyWnjjJ_rajUk-xHCG1Usg&oe=6926818B"
+                    alt="Campagne Événement Gospel" class="project-img">
+                <div class="project-info">
+                    <h3>Communication SM Services</h3>
+                    <p>Stratégie Social Media - Gestions des réseaux Sociaux.</p>
+                    <div class="project-tags">
+                        <span class="tag">#SmServices</span>
+                        <span class="tag">#Informatique</span>
+                        <span class="tag">#Appareil</span>
+                    </div>
+                </div>
+            </a>
+
+
         </div>
         <div style="text-align: center; margin-top: 3rem;">
             <p style="color: var(--secondary); margin-bottom: 1rem; font-size: 1.1rem;">Pour tout savoir sur mes projets
