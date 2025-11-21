@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CM & Créateur Gospel | Portfolio Futuriste</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- VARIABLES & RESET --- */
+        :root {
+            --bg-color: #050505;
+            --text-color: #ffffff;
+            --primary: #8A2BE2;
+            /* Violet Néon */
+            --secondary: #00FFFF;
+            /* Cyan */
+            --accent: #FF0055;
+            /* Rose/Rouge TikTok */
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            cursor: none;
+            /* On cache le curseur par défaut pour mettre le nôtre */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION STYLES --- */
+        #menu-icon {
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+            /* Au-dessus du menu */
+            transition: 0.3s;
+        }
+
+        /* Transformation de l'icône en X quand ouvert (optionnel mais stylé) */
+        #menu-icon.bx-x {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            /* Caché à droite de l'écran */
+            width: 100%;
+            /* Pleine largeur sur mobile, ou mettez 300px pour un volet */
+            max-width: 400px;
+            /* Limite la largeur sur grand écran */
+            height: 100vh;
+            background: rgba(5, 5, 5, 0.95);
+            /* Fond très sombre presque opaque */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: right 0.4s ease;
+            /* Animation fluide */
+            backdrop-filter: blur(10px);
+            border-left: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .nav-menu.active {
+            right: 0;
+            /* Le menu glisse vers l'intérieur */
+        }
+
+        .nav-links {
+            list-style: none;
+            text-align: center;
+        }
+
+        .nav-links li {
+            margin: 2rem 0;
+        }
+
+        .nav-link {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--secondary);
+            text-shadow: 0 0 10px var(--secondary);
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 255, 0.1);
+            border-color: var(--primary);
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        /* --- HERO SECTION (ANTIGRAVITY) --- */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+            /* Laisse passer la souris pour l'effet */
+        }
+
+        h1 {
+            font-size: 5rem;
+            line-height: 1;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaa;
+            letter-spacing: 1px;
+        }
+
+        /* Les éléments flottants (Réseaux Sociaux) */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .floater {
+            position: absolute;
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-shadow: 0 0 20px var(--primary);
+            transition: transform 0.1s linear;
+            /* Mouvement fluide souris */
+            animation: drift 6s ease-in-out infinite alternate;
+            /* Mouvement auto */
+        }
+
+        /* Positions initiales dispersées */
+        .f1 {
+            top: 15%;
+            left: 15%;
+            color: #1877F2;
+            font-size: 4rem;
+        }
+
+        /* FB */
+        .f2 {
+            top: 20%;
+            right: 20%;
+            color: #E1306C;
+            font-size: 3rem;
+        }
+
+        /* Insta */
+        .f3 {
+            bottom: 20%;
+            left: 10%;
+            color: #000000;
+            -webkit-text-stroke: 1px white;
+            font-size: 5rem;
+        }
+
+        /* TikTok */
+        .f4 {
+            bottom: 25%;
+            right: 15%;
+            color: #0077b5;
+            font-size: 2.5rem;
+        }
+
+        /* LinkedIn */
+        .f5 {
+            top: 50%;
+            left: 80%;
+            color: #ffffff;
+            font-size: 2rem;
+        }
+
+        /* X */
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+            background: rgba(5, 5, 5, 0.9);
+            /* Fond sombre légèrement transparent */
+            font-size: 0.9rem;
+            color: #888;
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+        }
+
+        /* --- PROJECTS SECTION --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: 0.3s;
+            text-decoration: none;
+            color: var(--text-color);
+            display: block;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 0 30px rgba(138, 43, 226, 0.2);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            filter: brightness(0.7);
+            transition: 0.5s;
+        }
+
+        .project-card:hover .project-img {
+            filter: brightness(1);
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            /* Cyan pour le titre du projet */
+        }
+
+        .project-info p {
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .project-tags .tag {
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            background-color: var(--primary);
+            /* Violet pour le tag */
+            border: none;
+        }
+
+        /* Formes géométriques décoratives */
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), transparent);
+            opacity: 0.3;
+            filter: blur(50px);
+        }
+
+        .s1 {
+            width: 300px;
+            height: 300px;
+            top: -50px;
+            left: -50px;
+        }
+
+        .s2 {
+            width: 200px;
+            height: 200px;
+            bottom: 50px;
+            right: 50px;
+            background: linear-gradient(45deg, var(--secondary), transparent);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 6rem 10%;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        /* --- ABOUT GRID --- */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-img-wrapper {
+            position: relative;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            filter: grayscale(100%);
+            transition: 0.5s;
+        }
+
+        .about-img:hover {
+            filter: grayscale(0%);
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- PORTFOLIO CARDS --- */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 20px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- CONTACT BUTTONS --- */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 1.5rem;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .btn-wa {
+            background: linear-gradient(45deg, #25D366, #128C7E);
+        }
+
+        .btn-msg {
+            background: linear-gradient(45deg, #00B2FF, #006AFF);
+        }
+
+        .btn-mail {
+            background: linear-gradient(45deg, #333, #555);
+            border: 1px solid #666;
+            cursor: pointer;
+            /* Ajout pour le bouton du modal */
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes drift {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        /* --- SKILLS CAROUSEL --- */
+        .carousel-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            overflow: hidden;
+            padding: 2rem 0;
+        }
+
+        .skills-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            padding: 1rem;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE 10+ */
+            max-width: 800px;
+        }
+
+        .skills-container::-webkit-scrollbar {
+            display: none;
+            /* Chrome/Safari */
+        }
+
+        .skill-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 20px;
+            min-width: 150px;
+            text-align: center;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .skill-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .skill-card h3 {
+            font-size: 1.2rem;
+        }
+
+        .carousel-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-color);
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: 50%;
+            transition: 0.3s;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        /* --- MODAL POPUP (Formations) --- */
+        .modal {
+            display: none;
+            /* Caché par défaut */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            /* Arrière-plan sombre/néon */
+            padding-top: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: #111;
+            /* Fond du modal plus sombre */
+            color: var(--text-color);
+            margin: 5% auto;
+            padding: 2.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 0 40px rgba(138, 43, 226, 0.4);
+            /* Ombre néon */
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content h3 {
+            color: var(--secondary);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Timeline style */
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background-color: var(--primary);
+            /* Ligne néon */
+        }
+
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            border: 3px solid #111;
+            /* Pour un effet "flottant" */
+            box-shadow: 0 0 10px var(--secondary);
+        }
+
+        .timeline-year {
+            font-weight: 800;
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-info h4 {
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+
+        .timeline-info p {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floater {
+                opacity: 0.5;
+            }
+
+            /* Moins visible sur mobile pour lisibilité */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="cursor"></div>
+
+    <header>
+        <div class="logo">EphNa<span style="color:var(--secondary)">.CM</span></div>
+
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link">Accueil</a></li>
+                <li><a href="#about" class="nav-link">À propos</a></li>
+                <li><a href="#work" class="nav-link">Services</a></li>
+                <li><a href="#skills" class="nav-link">Compétences</a></li>
+                <li><a href="#projects" class="nav-link">Projets</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+
+        <i class="fas fa-bars" id="menu-icon"></i>
+    </header>
+
+    <section class="hero">
+        <div class="shape s1"></div>
+        <div class="shape s2"></div>
+
+        <div class="floating-elements" id="scene">
+            <i class="fab fa-facebook-f floater f1" data-speed="2"></i>
+            <i class="fab fa-instagram floater f2" data-speed="-4"></i>
+            <i class="fab fa-tiktok floater f3" data-speed="6"></i>
+            <i class="fab fa-linkedin-in floater f4" data-speed="-2"></i>
+            <i class="fab fa-x-twitter floater f5" data-speed="3"></i>
+        </div>
+
+        <div class="hero-content">
+            <h1>Ephraim<br>NANA</h1>
+            <p>Community Manager • Montage Vidéo • Événementiel • Gospel</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-grid">
+            <div class="about-img-wrapper">
+                <img src="img/FB_IMG_1763127805986.jpg" alt="Ephraim NANA - Portrait" class="about-img">
+            </div>
+            <div class="about-text">
+                <h2 class="section-title">Plus qu'un <span>CM</span></h2>
+                <p style="margin-bottom: 1rem;">
+                    Je ne me contente pas de poster. Je crée des histoires. Passionné par l'univers du Gospel et acteur
+                    de cette scène, je combine ma vision artistique de vidéaste avec des stratégies digitales
+                    percutantes.
+                </p>
+                <p>
+                    Mon objectif ? Transformer votre audience en une véritable communauté engagée, que ce soit pour une
+                    structure, un artiste ou un événement.
+                </p>
+                <div class="tags">
+                    <span class="tag">#GospelActor</span>
+                    <span class="tag">#Videomaker</span>
+                    <span class="tag">#Events</span>
+                    <span class="tag">#Strategy</span>
+                </div>
+                <button id="openModalBtn" class="contact-btn btn-mail" style="margin-top: 2rem; width: 100%;">
+                    <i class="fas fa-graduation-cap"></i> Voir mon Parcours
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="work">
+        <h2 class="section-title">Mes <span>Terrains de Jeu</span></h2>
+        <div class="portfolio-grid">
+            <div class="card">
+                <i class="fas fa-lightbulb" style="font-size: 2rem; color: var(--secondary); margin-bottom: 1rem;"></i>
+                <h3>Stratégie de Communication Digitale</h3>
+                <p>Développement de plans stratégiques pour artistes, structures et événements, alignant vos objectifs
+                    artistiques et commerciaux avec les tendances du marché Gospel.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-share-nodes" style="font-size: 2rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <h3>Gestion de Réseaux Sociaux</h3>
+                <p>Animation quotidienne de vos plateformes (Instagram, Facebook, TikTok) pour transformer l'audience en
+                    une communauté engagée et fidèle.</p>
+            </div>
+
+            <div class="card">
+                <i class="fas fa-wand-magic-sparkles"
+                    style="font-size: 2rem; color: var(--accent); margin-bottom: 1rem;"></i>
+                <h3>Création de Contenu Visuel & Vidéo</h3>
+                <p>Conception graphique (visuels promotionnels) et montage vidéo dynamique (Reels, Shorts) optimisés
+                    pour la viralité et l'impact sur toutes les plateformes.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title"><span>Outils utilisés</span></h2>
+        <div class="carousel-wrapper">
+            <button class="carousel-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+            <div class="skills-container" id="skillsContainer">
+                <div class="skill-card">
+                    <i class="fab fa-facebook"></i>
+                    <h3>Facebook</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-instagram"></i>
+                    <h3>Instagram</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-tiktok"></i>
+                    <h3>Tiktok</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-youtube"></i>
+                    <h3>Youtube</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fab fa-linkedin"></i>
+                    <h3>LinkedIn</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-paintbrush"></i>
+                    <h3>Photoshop</h3>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-video"></i>
+                    <h3>PremierePro-Capcut</h3>
+                </div>
+            </div>
+            <button class="carousel-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title"><span>Expériences & Projets Récents</span></h2>
+        <div class="projects-grid">
+
+            <a href="https://www.facebook.com/share/1GUHFsveum/" class="project-card">
+                <img src="https://scontent.foua5-1.fna.fbcdn.net/v/t39.30808-6/526735258_1177006391133714_302026759480995220_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEosA2a55qdSmyvrefIrwkNSgidVSmDq91KCJ1VKYOr3S0KumJBqi6RiC77RYNw6xgTeo2SDTclC3ZMbUVmSYze&_nc_ohc=E1_s4jaGAI8Q7kNvwGmWOma&_nc_oc=AdlSMeG1OCRA30r8-zZsS7s7xvJ01k9dQdr5k5oipyYEu1avrybquhFTUoRyUPrC3zc&_nc_zt=23&_nc_ht=scontent.foua5-1.fna&_nc_gid=nThODrbVv9gWpsejRVAtoQ&oh=00_Afjoivxar2ysdfjgzHZz81fvjyWnjjJ_rajUk-xHCG1Usg&oe=6926818B"
+                    alt="Campagne Événement Gospel" class="project-img">
+                <div class="project-info">
+                    <h3>Communication SM Services</h3>
+                    <p>Stratégie Social Media - Gestions des réseaux Sociaux.</p>
+                    <div class="project-tags">
+                        <span class="tag">#SmServices</span>
+                        <span class="tag">#Informatique</span>
+                        <span class="tag">#Appareil</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://www.facebook.com/share/1D6V7GbUL4/" class="project-card">
+                <img src="https://scontent.foua5-1.fna.fbcdn.net/v/t39.30808-6/456913104_1059418039160115_3272494416416696404_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFTDfke2fVxrqmw8JWJCZhw8Og09_hKMZnw6DT3-EoxmXUNhP_xS-GsZUgmw1u0DC6bHiKAJZCI35UIC1P2q8uv&_nc_ohc=ScYa9taYLxwQ7kNvwEtt2so&_nc_oc=Adm3lw-ZZ-1w0o8e8SJHMSNLQTLqDtUfnFKtTQW1HlvKdYrMcIAb6K5y1QGE8JfsvhI&_nc_zt=23&_nc_ht=scontent.foua5-1.fna&_nc_gid=XrCORPQXKr7uo7mu4nwi8A&oh=00_AfhLegzVkGNEwDo2VzC6vtvtYZ9HW1l-oGm-7YOycbSkrQ&oe=69269D70"
+                    alt="Refonte Image Artiste" class="project-img">
+                <div class="project-info">
+                    <h3>Restaurant Espace Merveilles</h3>
+                    <p>Creation de Contenu</p>
+                    <div class="project-tags">
+                        <span class="tag">#Restaurant</span>
+                        <span class="tag">#Storytelling</span>
+                        <span class="tag">#IG_Reels</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://vm.tiktok.com/ZMA3KBFL5/" class="project-card">
+                <img src="https://scontent.foua5-1.fna.fbcdn.net/v/t39.30808-6/398377226_770163681792944_7165898122605126490_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeEv9_OblQfeNegUEUENQVDyripUTfpzbSGuKlRN-nNtIS9RI3Ef6sbW-Pm7LmkTXrfhP7zezssFQ217-uoSIyYy&_nc_ohc=ueK35Y6fV6QQ7kNvwGbYLtJ&_nc_oc=Adk7mi6wrGWlAY5va1iyCXRJZTFVPOh7evND5n3EvKF7--zdV6CP6e-alGEk2vE4SiQ&_nc_zt=23&_nc_ht=scontent.foua5-1.fna&_nc_gid=g9r4FQHyCFTxfNa_LAm5Ew&oh=00_AfjnNMyYKxiE1pl0ujyzObGCH-pa99DMczN87TCMlV3UoQ&oe=69267551"
+                    alt="Série de Courts-Métrages Viraux" class="project-img">
+                <div class="project-info">
+                    <h3>Réels Maker - Nadiaksa</h3>
+                    <p>Création et montage d'une série de vidéos courtes pour TikTok/YouTube Shorts, générant plus de
+                        100K vues cumulées.</p>
+                    <div class="project-tags">
+                        <span class="tag">#Montage</span>
+                        <span class="tag">#Capcut</span>
+                        <span class="tag">#Vertical_Video</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+            <p style="color: var(--secondary); margin-bottom: 1rem; font-size: 1.1rem;">Pour tout savoir sur mes projets
+                et moi</p>
+            <a href="img/cv.jpg" target="_blank" class="contact-btn btn-wa" style="width: auto; padding: 1rem 3rem;">
+                <i class="fas fa-file-pdf"></i> VOIR CV
+            </a>
+        </div>
+    </section>
+
+    <section id="contact" style="text-align: center;">
+        <h2 class="section-title">Let's <span>Connect</span></h2>
+        <p>Un projet ? Une collab ? Contactez-moi directement.</p>
+
+        <div class="contact-container">
+            <a href="https://wa.me/22673825008" class="contact-btn btn-wa">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://m.me/ephraimnana" class="contact-btn btn-msg">
+                <i class="fab fa-facebook-messenger"></i> Messenger
+            </a>
+            <a href="mailto:ephraimnana74@gmail.com" class="contact-btn btn-mail">
+                <i class="fas fa-envelope"></i> Email
+            </a>
+        </div>
+    </section>
+
+    <div id="educationModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3>🎓 Mon Parcours & Formations</h3>
+            <hr style="border-color: var(--border); margin-bottom: 1.5rem;">
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-info">
+                        <h4>Licence Économie et Gestion des Entreprises</h4>
+                        <p>Université St Thomas d'Aquin</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2024</div>
+                    <div class="timeline-info">
+                        <h4>Attestation Comptabilité et Civisme Fiscal</h4>
+                        <p>Karaba Group International</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-info">
+                        <h4>Attestation Conception Plan de Communication Marketing Digital</h4>
+                        <p>Leader Communication Center</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2023</div>
+                    <div class="timeline-info">
+                        <h4>Attestation Community Manager (Théorique et Pratique)</h4>
+                        <p>REMA Academy</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-year">2021</div>
+                    <div class="timeline-info">
+                        <h4>Baccalauréat</h4>
+                        <p>Lycée Wend-Manegre</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>&copy; 2025 YvesKabore. Fait avec <i class="fas fa-heart" style="color: var(--accent);"></i> et du code.</p>
+    </footer>
+
+    <script>
+        // --- 1. GESTION DU CURSEUR ---
+        const cursor = document.querySelector('.cursor');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // --- GESTION DU MENU HAMBURGER ---
+        const menuIcon = document.getElementById('menu-icon');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // Ouvrir / Fermer le menu au clic sur l'icône
+        menuIcon.onclick = () => {
+            navMenu.classList.toggle('active');
+
+            // Change l'icône de barres à croix (optionnel si tu veux l'effet visuel)
+            if (navMenu.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        };
+
+        // Fermer le menu quand on clique sur un lien
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // Effet Hover sur les liens et boutons
+        document.querySelectorAll('a, button, .card, .floater').forEach(item => {
+            item.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+            item.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+        });
+
+        // --- 2. EFFET ANTIGRAVITÉ (PARALLAXE SOURIS) ---
+        document.addEventListener('mousemove', parallax);
+
+        function parallax(e) {
+            const elements = document.querySelectorAll('.floater');
+
+            elements.forEach(el => {
+                const speed = el.getAttribute('data-speed');
+
+                // Calcul de la position par rapport au centre de l'écran
+                const x = (window.innerWidth - e.pageX * speed) / 100;
+                const y = (window.innerHeight - e.pageY * speed) / 100;
+
+                // Application de la transformation
+                el.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            });
+        }
+
+        // --- 3. SCROLL REVEAL SIMPLE ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Appliquer l'état initial caché aux sections
+        document.querySelectorAll('section:not(.hero)').forEach(sec => {
+            sec.style.opacity = 0;
+            sec.style.transform = 'translateY(50px)';
+            sec.style.transition = 'all 1s ease';
+            observer.observe(sec);
+        });
+
+
+
+        // --- 5. GESTION DU MODAL POP-UP (ÉDUCATION) ---
+        const modal = document.getElementById("educationModal");
+        const btn = document.getElementById("openModalBtn");
+        const span = document.getElementsByClassName("close-btn")[0];
+
+        if (modal && btn && span) {
+            // Quand l'utilisateur clique sur le bouton, ouvrir le modal
+            btn.onclick = function () {
+                modal.style.display = "block";
+                cursor.classList.remove('hovered'); // Désactiver l'effet hover du curseur
+            }
+
+            // Quand l'utilisateur clique sur (x), fermer le modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // Quand l'utilisateur clique n'importe où en dehors du modal, le fermer
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
