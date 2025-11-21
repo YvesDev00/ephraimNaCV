@@ -504,6 +504,7 @@
             padding: 2rem 0;
         }
 
+
         .skills-container {
             display: flex;
             gap: 2rem;
@@ -520,6 +521,29 @@
         .skills-container::-webkit-scrollbar {
             display: none;
             /* Chrome/Safari */
+        }
+
+        /* --- MOBILE : On cache les boutons et on active le scroll tactile --- */
+        @media (max-width: 768px) {
+            .carousel-btn {
+                display: none;
+                /* Cache les flèches sur téléphone */
+            }
+
+            .skills-container {
+                /* Permet le scroll tactile fluide */
+                overflow-x: scroll;
+                -webkit-overflow-scrolling: touch;
+                justify-content: flex-start;
+                /* Aligne bien les éléments au début */
+                padding: 1rem 5%;
+                /* Un peu de marge sur les côtés */
+            }
+
+            /* On cache la barre de défilement moche sur mobile */
+            .skills-container::-webkit-scrollbar {
+                display: none;
+            }
         }
 
         .skill-card {
@@ -744,7 +768,7 @@
 
         <div class="hero-content">
             <h1>Ephraim<br>NANA</h1>
-            <p>Community Manager • Montage Vidéo • Événementiel • Gospel</p>
+            <p>Community Management • Montage Vidéo • Événementiel </p>
         </div>
     </section>
 
@@ -1074,6 +1098,29 @@
                     modal.style.display = "none";
                 }
             }
+        }
+
+        // --- 4. LOGIQUE DU CAROUSEL (SKILLS) ---
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const skillsContainer = document.getElementById('skillsContainer');
+
+        if (prevBtn && nextBtn && skillsContainer) {
+            // Défilement vers la droite
+            nextBtn.addEventListener('click', () => {
+                skillsContainer.scrollBy({
+                    left: 300, // Distance de défilement (pixels)
+                    behavior: 'smooth' // Animation fluide
+                });
+            });
+
+            // Défilement vers la gauche
+            prevBtn.addEventListener('click', () => {
+                skillsContainer.scrollBy({
+                    left: -300,
+                    behavior: 'smooth'
+                });
+            });
         }
     </script>
 </body>
